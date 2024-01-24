@@ -1,4 +1,4 @@
-package com.markp.Importer;
+package com.markp.importer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

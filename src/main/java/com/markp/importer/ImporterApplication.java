@@ -1,4 +1,4 @@
-package com.markp.Importer;
+package com.markp.importer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

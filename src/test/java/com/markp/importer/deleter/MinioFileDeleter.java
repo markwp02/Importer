@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-
 @Component
 public class MinioFileDeleter implements FileDeleter {
 
@@ -27,18 +25,18 @@ public class MinioFileDeleter implements FileDeleter {
 
     /**
      * Checks to see if file exists by querying the metadata of the file.
-     * @param file
+     * @param filename
      * @return true if the files metadata exists
      */
     @Override
-    public boolean checkFileExists(File file) {
+    public boolean checkFileExists(String filename) {
         try {
             // Object metadata
             StatObjectResponse response = minioClient.statObject(StatObjectArgs.builder()
                     .bucket(bucketName)
-                    .object(file.getName()).build());
-            System.out.println(file.getName() + " found in bucket " + bucketName + " " + response);
-            return response.object().equals(file.getName());
+                    .object(filename).build());
+            System.out.println(filename + " found in bucket " + bucketName + " " + response);
+            return response.object().equals(filename);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -46,11 +44,11 @@ public class MinioFileDeleter implements FileDeleter {
     }
 
     @Override
-    public void deleteFile(File file) {
+    public void deleteFile(String filename) {
         try {
             minioClient.removeObject(RemoveObjectArgs.builder()
                     .bucket(bucketName)
-                    .object(file.getName()).build());
+                    .object(filename).build());
         } catch (Exception e) {
             e.printStackTrace();
         }

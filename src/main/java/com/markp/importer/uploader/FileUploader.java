@@ -4,5 +4,5 @@ import java.io.File;
 
 public interface FileUploader {
 
-    void uploadFile(File file);
+    void uploadFile(String filename, String filepath);
 }

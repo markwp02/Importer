@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-
-
 @Component
 public class MinioFileUploader implements FileUploader {
 
@@ -28,7 +25,7 @@ public class MinioFileUploader implements FileUploader {
     }
 
     @Override
-    public void uploadFile(File file) {
+    public void uploadFile(String filename, String filepath) {
 
         try {
             createBucketIfNotExists(bucketName);
@@ -36,10 +33,10 @@ public class MinioFileUploader implements FileUploader {
             minioClient.uploadObject(
                     UploadObjectArgs.builder()
                             .bucket(bucketName)
-                            .object(file.getName())
-                            .filename(file.getPath())
+                            .object(filename)
+                            .filename(filepath)
                             .build());
-            System.out.println(file.getName() + " has successfully been uploaded to bucket " + bucketName);
+            System.out.println(filename + " has successfully been uploaded to bucket " + bucketName);
 
         } catch (MinioException minioException) {
             System.out.println("Error occurred: " + minioException);

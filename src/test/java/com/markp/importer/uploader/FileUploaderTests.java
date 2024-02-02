@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -18,21 +16,25 @@ public class FileUploaderTests {
     @Autowired
     private FileDeleter fileDeleter;
 
+    public void cleanup(String filename) {
+        fileDeleter.deleteFile(filename);
+        fileDeleter.deleteBucket();
+    }
+
     @Test
     public void shouldUploadFile() {
         // given file is available to be uploaded
         String filename = "MINIO_Bird.png";
-        File file = new File("src\\test\\resources\\" + filename);
+        String filepath = "src\\test\\resources\\" + filename;
 
         // when uploading the file
-        fileUploader.uploadFile(file);
+        fileUploader.uploadFile(filename, filepath);
 
         // then the file should be uploaded
-        boolean fileUploaded = fileDeleter.checkFileExists(file);
+        boolean fileUploaded = fileDeleter.checkFileExists(filename);
         assertTrue(fileUploaded);
 
         // cleanup
-        fileDeleter.deleteFile(file);
-        fileDeleter.deleteBucket();
+        cleanup(filename);
     }
 }

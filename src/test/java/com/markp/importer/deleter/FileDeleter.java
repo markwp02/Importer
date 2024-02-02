@@ -1,12 +1,10 @@
 package com.markp.importer.deleter;
 
-import java.io.File;
-
 public interface FileDeleter {
 
-    boolean checkFileExists(File file);
+    boolean checkFileExists(String filename);
 
-    void deleteFile(File file);
+    void deleteFile(String filename);
 
     void deleteBucket();
 }

@@ -1,5 +1,6 @@
 package com.markp.importer.uploader;
 
+import com.markp.importer.deleter.FileDeleter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,9 @@ public class FileUploaderTests {
     @Autowired
     private FileUploader fileUploader;
 
+    @Autowired
+    private FileDeleter fileDeleter;
+
     @Test
     public void shouldUploadFile() {
         // given file is available to be uploaded
@@ -24,11 +28,11 @@ public class FileUploaderTests {
         fileUploader.uploadFile(file);
 
         // then the file should be uploaded
-        boolean fileUploaded = fileUploader.checkFileExists(file);
+        boolean fileUploaded = fileDeleter.checkFileExists(file);
         assertTrue(fileUploaded);
 
         // cleanup
-        fileUploader.deleteFile(file);
-        fileUploader.deleteBucket();
+        fileDeleter.deleteFile(file);
+        fileDeleter.deleteBucket();
     }
 }

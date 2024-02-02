@@ -35,6 +35,6 @@ To connect to Minio set the following properties, by creating an access key and 
 > Never publish your access key and secret access key to git
 
 ```
-minio.access-key=
-minio.secret-access-key=
+minio.access-key=qnS4D3myEhFttgeboI6P
+minio.secret-access-key=9aNi6P7Y2wXuNOEpOgrN0VCRwivyMX54sgvdMOmN
 ```
